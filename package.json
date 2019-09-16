@@ -72,6 +72,7 @@
   },
   "dependencies": {
     "cachedir": "2.2.0",
+    "cosmiconfig": "5.2.1",
     "cz-conventional-changelog": "3.0.1",
     "dedent": "0.7.0",
     "detect-indent": "6.0.0",

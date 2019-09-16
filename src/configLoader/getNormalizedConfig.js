@@ -1,9 +1,21 @@
-export default getNormalizedConfig;
+import cosmiconfig from 'cosmiconfig';
+const explorer = cosmiconfig('commitizen');
 
 // Given a config and content, plucks the actual
 // settings that we're interested in
 function getNormalizedConfig (config, content) {
 
+  // Attempt to find configuration via cosmiconfig
+  const result = explorer.searchSync();
+  try {
+    if (result !== null && !result.isEmpty) {
+      return result.config;
+    }
+  } catch (err) {
+    console.error('ERROR: Found malformed configuration object');
+  }
+
+  // If cosmiconfig could not find config, continue with existing config loading logic below.
   if (content && (config === 'package.json')) {
 
   // PACKAGE.JSON
@@ -26,3 +38,5 @@ function getNormalizedConfig (config, content) {
   }
 
 }
+
+export default getNormalizedConfig;
